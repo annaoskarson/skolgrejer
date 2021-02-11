@@ -36,7 +36,6 @@ def main():
         for t in range(30):
             clear()
             print(string)
-            space = ''
             for i in range(14):
                 row = ' ' * random.randrange(61)
                 print(row + termcolor.colored('*',random.choice(col)))
@@ -92,7 +91,7 @@ def main():
         ans = input('     ' + str(question[0]) + ' * ' + str(question[1]) + ' = ')
         if not(ans.isnumeric()):
             print('     Du måste skriva siffror. Försök igen.\n\n     Tryck på enter (⮐ ) för att fortsätta.')
-            input()
+            input('     ')
         elif int(ans) == question[0]*question[1]:
             if question in correct:
                 questions.remove(question)
@@ -112,6 +111,6 @@ def main():
             print('     ' + str(question[0]) + ' * ' + str(question[1]) + ' ≠ ' + ans)
             print('\n     Rätt svar är ' + str(question[0]*question[1]) + '.')
             print('\n     Försök igen! Tryck på enter (⮐ ) för att fortsätta.')
-            input()
+            input('     ')
 
 main()
