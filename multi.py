@@ -6,8 +6,6 @@ def main():
     clear = lambda: os.system('clear')
 
     if len(sys.argv) == 1:
-        print("Testar alla tabellerna, 1-10.")
-        print("För att välja tabeller, skriv '1-4' eller '2,6,5' som argument.")
         tables = list(range(11))
     elif '--' in sys.argv[1]:
         print("\nFör att välja tabeller, skriv '1-4' eller '2,6,5' som argument.")
@@ -37,7 +35,7 @@ def main():
             clear()
             print(string)
             for i in range(14):
-                row = ' ' * random.randrange(61)
+                row = ' ' * random.randrange(70)
                 print(row + termcolor.colored('*',random.choice(col)))
             time.sleep(0.3)
 
@@ -78,7 +76,7 @@ def main():
         path = road * left
         after = road * score
         return('\n\n\n   '
-            + goal  + path + car + after + start
+            + goal + path + car + after + start
             + '\n\n\n')
 
 
@@ -88,7 +86,7 @@ def main():
         score = (len(correct) + (total - len(questions)))*60 // (2*total)
         clear()
         print(scoring(score, car))
-        ans = input('     ' + str(question[0]) + ' * ' + str(question[1]) + ' = ')
+        ans = input('     ' + str(question[0]) + ' ⋅ ' + str(question[1]) + ' = ')
         if not(ans.isnumeric()):
             print('     Du måste skriva siffror. Försök igen.\n\n     Tryck på enter (⮐ ) för att fortsätta.')
             input('     ')
