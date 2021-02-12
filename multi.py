@@ -5,6 +5,9 @@ import os
 def main():
     clear = lambda: os.system('clear')
 
+    width = os.get_terminal_size()[0]
+    height = os.get_terminal_size()[1]
+
     if len(sys.argv) == 1:
         tables = list(range(11))
     elif '--' in sys.argv[1]:
@@ -34,13 +37,15 @@ def main():
         for t in range(30):
             clear()
             print(string)
-            for i in range(14):
-                row = ' ' * random.randrange(70)
+            for i in range(height-8):
+                row = ' ' * random.randrange(width-1)
                 print(row + termcolor.colored('*',random.choice(col)))
             time.sleep(0.3)
 
     def scoring(score, car):
-        left = 60 - score
+        behind = int(round(score * (width-10)))
+        ahead = int(round(width - behind-10))
+        #print('test', width, ahead, behind)
         # Defaults
         goal = '🏁'
         start = '🚦'
@@ -70,20 +75,20 @@ def main():
         elif car in ['🛷']:
             goal = '☃'
         elif car in ['⛷']:
-            road = '░'
+            road = termcolor.colored('░', 'white')
             goal = '🗻'
 
-        path = road * left
-        after = road * score
-        return('\n\n\n   '
+        path = road * ahead
+        after = road * behind
+        return('\n\n '
             + goal + path + car + after + start
-            + '\n\n\n')
+            + '\n\n')
 
 
     question = random.choice(questions)
     total = len(questions)
     while True:
-        score = (len(correct) + (total - len(questions)))*60 // (2*total)
+        score = (len(correct) + (total-len(questions))) / (2*total)
         clear()
         print(scoring(score, car))
         ans = input('     ' + str(question[0]) + ' ⋅ ' + str(question[1]) + ' = ')
@@ -99,9 +104,10 @@ def main():
                 question = random.choice(questions)
             else:
                 clear()
-                score = 60
-                string = 'Du har klarat alla uppgifter två gånger. Grattis!'
-                fireworks(scoring(score, car) + '     ' + string)
+                score = 1
+                string = 'Du har svarat rätt på alla uppgifter två gånger. Grattis!'
+                padding = ' ' * int(round(width - len(string)) /2)
+                fireworks(scoring(score, car) + padding + string)
                 return()
         else:
             clear()
